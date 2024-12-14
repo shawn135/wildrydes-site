@@ -1,0 +1,30 @@
+This is an explaination of the process I used to create this app
+
+Step 1: clone this git repository
+
+Step 2: access AWS Amplify. 
+Here select create new app. Deploy app from Github. You may need to change your permissions in github to allow the respository to be selected. Deploy the app
+Amp is able to build the architecture to deploy this website automatically
+
+Step 3: test 
+Go the to index.html and edit line 33 to say how does this THING work. you can then see in amplify that it is updated and redeploying
+
+Step 4: Cognito
+the website is static and we need to change that. Cognito will be used for authentification. Create a User pool. I did the basic minimum requirements for everything. then click into your user pool after it is created. copy the user pool id and place in notepad. then on the left side select app client and copy and paste the client id into the notepad. we will place those into github
+find the folder that is labelled js and select and edit config.js. paste the copied numbers in the appropriate place between the double quotes. Next put your region into the double quotes. Commit the changes and your app will begin a new deployment. select single app to disable the secret client code
+
+Step 5: create DynamoDb
+create new table to support app. Copy the ARN and place in notepad. navigate to IAM and create a new role with lambda service use care. attach awslambdabasicexecution role to the role and create. next select role and create inline policy. DynamoDB and allow actions putitem. go to resource select specific and add your arn you copied.
+policy name dynamoDBwrite access and create.
+
+Step 6: lambda
+Create new function named requestUnicorn. node.js 20. select use existing role and select the one we just created and create. In the readme in github copy the lambda function and paste it in the lambda. Deploy it. 
+
+Step 7: Create API
+Create REST API. Create authorizer and set to cognito. for token source type Authorization. Create. 
+Next create resource. name and enable CORS. go to /ride and create method. Method type is POST select lambda proxy integration. select your ARN and create method. Next go to method request setting and connect to your app. Now you can deploy the API.
+
+
+
+
+
